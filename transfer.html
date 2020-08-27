@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <script src="web3.js"></script>
+        <script>
+            var Web3 = require('web3');
+            var web3 = new Web3();
+
+            web3.setProvider(new
+            web3.providers.HttpProvider('http://localhost:8545'));
+
+            function getAccount(to,amount,password){
+                web3.eth.getCoinbase((error, addr) => {
+                    if (error) {
+                        document.getElementById('account').innerHTML =  error;
+                    }
+                    else {
+                        account =addr
+                        document.getElementById('account').innerHTML = addr;
+
+                    }
+                })
+            }
+            function getBalance(){
+                acc=web3.eth.accounts[0];
+                web3.eth.getBalance(acc, (error,balance) =>{
+                    if(error){accountBalance
+                        document.getElementById('balanceAcc').innerHTML =  error;
+                    }
+                    else {
+                        document.getElementById('balanceAcc').innerHTML = web3.fromWei(balance,"ether") + ' ether';
+                    }
+                })
+            }
+            function sendTransaction(){
+                web3.personal.sendTransaction({from: account,to: target,value: web3.toWei(amount,"ether")},password,(error,transaction) =>{
+                    if(error){
+                        document.getElementById('sendInfo').innerHTML =error;
+                    } else{
+                        document.getElementById('sendInfo').innerHTML = transaction;
+                        // web3.eth.getTransaction(transaction)
+                    }
+                })
+            }
+        </script>
+    </head>
+    <body onload="getAccount(),getBalance()">
+        <h1>Node 1</h1>
+        <h1>Money Transfer</h1><hr>
+        <h2>Main Account info</h2>
+        <div>Address : <span id="account"></span></div>
+        <div>Balance : <span id="balanceAcc"></span></div>
+        <label for="transfer-to">Transfer to: </label>
+        <input style="width: 30%;"type="text" id="target" name="fname">
+        <label for="transfer-to">Amount(Ether): </label>
+        <input type="text" id="amount" name="fname">
+        <label for="transfer-to">Pass phrase:</label>
+        <input type="text" id="password" name="fname">
+        <button type="button" onclick="sendTransaction()">Send<div id=""></div></button>
+        
+    </body>
+</html>

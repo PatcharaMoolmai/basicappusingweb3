@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <script src="web3.js"></script>
+        <script>
+            var Web3 = require('web3');
+            var web3 = new Web3();
+            //connect to the node
+            web3.setProvider(new
+            web3.providers.HttpProvider('http://localhost:8545'));
+            // function listAccounts() {
+            //     web3.eth.getAccounts((error, accounts) => {
+            //         if (error) {
+            //             document.getElementById('listOfAccounts').innerHTML =  error;
+            //         }
+            //         else {
+            //             var accountList = '';
+            //             for (i = 0; i < accounts.length; i++) {
+			// 	             accountList += '<li>' + accounts[i] + '</li>';
+			//             }
+            //             document.getElementById('listOfAccounts').innerHTML = '<ol start="0">' + accountList + '</ol>';
+            //         }
+            //     });
+		    // }
+            function sendTransaction(){
+                web3.eth.sendTransaction((error,accounts)=>{
+                    if(error){
+                        document.getElementById('Transaction').innerHTML = error;
+                    }
+                    else{
+                        document.getElementById()   
+                    }
+                })
+            }
+            function accountBalanceByIndex() {
+                index = document.getElementById('index').value;
+                web3.eth.getBalance(accounts[0], (error,balance) =>{
+                    if (error) {
+                        document.getElementById('accountBalance').innerHTML =  error;
+                    }
+                    else {
+                        document.getElementById('accountBalance').innerHTML = web3.fromWei(balance,"ether") + ' ether';   
+                    }
+                });
+                
+            }
+            function getAccounts() {
+                web3.eth.getAccounts((error, accs) => {
+                    if (error) {
+                        document.getElementById('accountBalance').innerHTML =  error;
+                    }
+                    else {
+                        document.getElementById('accountBalance').innerHTML = accs;
+                    }
+                })
+            }
+            
+        </script>
+    </head>
+    <body>
+        <h1>Node 1</h1>
+        <h1>Money Transfer</h1><hr>
+        <h3>Main Account info</h3>
+        <div>Address :<a onload="getAccounts()"></a></div>
+        <div>Balance :<a onload="getBalance()"></a></div><hr>
+        <!-- <button type="button" onclick="listAccounts()">List Account</button> -->
+        <label for="transfer-to">Transfer to: </label>
+        <input style="width: 30%;" type="text" id="transfer" name="fname">
+        <label for="transfer-to">Amount(Ether): </label>
+        <input type="text" id="amount" name="fname">
+        <label for="transfer-to">Pass phrase:</label>
+        <input type="text" id="pass" name="fname"> <br><br>
+        <button type="button" onclick="sendTransaction()">Send</button><hr>
+        <div id="listOfAccounts"></div>
+    </body>
+</html>
